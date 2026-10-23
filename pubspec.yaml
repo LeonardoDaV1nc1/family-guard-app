@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   dio: ^5.4.0
-  tabler_icons: ^1.2.0
+  tabler_icons: ^2.5.0+1
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

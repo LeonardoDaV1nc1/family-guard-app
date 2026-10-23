@@ -1,4 +1,4 @@
-import 'package0:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class AlertasBloqueioScreen extends StatelessWidget {
   const AlertasBloqueioScreen({super.key});

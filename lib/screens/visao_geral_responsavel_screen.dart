@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'aplicacoes_instaladas_screen.dart';
+import 'historico_conteudos_screen.dart';
+import 'lista_alertas_responsavel_screen.dart';
+import 'emergencia_responsavel_screen.dart';
+
 
 class VisaoGeralResponsavelScreen extends StatelessWidget {
   final String nomeCrianca;
@@ -71,11 +76,11 @@ class VisaoGeralResponsavelScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: Column(
                       children: [
-                        _buildNavItem(Icons.dashboard_outlined, 'Visão geral', true),
-                        _buildNavItem(Icons.grid_view, 'Aplicações', false),
-                        _buildNavItem(Icons.history, 'Conteúdos', false),
-                        _buildNavItem(Icons.shield_outlined, 'Alertas de bloqueio', false),
-                        _buildNavItem(Icons.error_outline, 'Emergência', false, isAlert: true),
+                        _buildNavItem(context, Icons.dashboard_outlined, 'Visão geral', true),
+                        _buildNavItem(context, Icons.grid_view, 'Aplicações', false, destino: const AplicacoesInstaladasScreen()),
+                        _buildNavItem(context, Icons.history, 'Conteúdos', false, destino: const HistoricoConteudosScreen()),
+                        _buildNavItem(context, Icons.shield_outlined, 'Alertas de bloqueio', false, destino: const ListaAlertasResponsavelScreen()),
+                        _buildNavItem(context, Icons.error_outline, 'Emergência', false, isAlert: true, destino: const EmergenciaResponsavelScreen()),
                       ],
                     ),
                   ),
@@ -137,7 +142,10 @@ class VisaoGeralResponsavelScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, {bool isAlert = false}) {
+  Widget _buildNavItem(BuildContext context, IconData icon, String label, bool isSelected, {
+    bool isAlert = false,
+    Widget? destino,
+  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 4),
       decoration: BoxDecoration(
@@ -145,9 +153,35 @@ class VisaoGeralResponsavelScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(
-        leading: Icon(icon, size: 18, color: isAlert ? const Color(0xFFB5443D) : (isSelected ? const Color(0xFF216F60) : const Color(0xFF6A7B75))),
-        title: Text(label, style: TextStyle(fontSize: 13, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal, color: isAlert ? const Color(0xFFB5443D) : (isSelected ? const Color(0xFF216F60) : const Color(0xFF6A7B75)))),
+        leading: Icon(
+          icon,
+          size: 18,
+          color: isAlert
+              ? const Color(0xFFB5443D)
+              : (isSelected
+                  ? const Color(0xFF216F60)
+                  : const Color(0xFF6A7B75)),
+        ),
+        title: Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            color: isAlert
+                ? const Color(0xFFB5443D)
+                : (isSelected
+                    ? const Color(0xFF216F60)
+                    : const Color(0xFF6A7B75)),
+          ),
+        ),
         dense: true,
+        onTap: destino == null
+            ? null
+            : () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => destino),
+                );
+              },
       ),
     );
   }
