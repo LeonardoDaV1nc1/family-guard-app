@@ -8,7 +8,7 @@ class ApiService {
             baseUrl: baseUrl ??
                 const String.fromEnvironment(
                   'API_BASE_URL',
-                  defaultValue: 'http://localhost:8080/api/',
+                 defaultValue: 'http://10.0.0.159:8080/api/',
                 ),
             connectTimeout: const Duration(seconds: 10),
             receiveTimeout: const Duration(seconds: 10),
